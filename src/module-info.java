@@ -3,4 +3,5 @@ module workshop.javafx.jdbc {
     requires javafx.fxml;
 
     opens application;
+    opens gui;
 }
