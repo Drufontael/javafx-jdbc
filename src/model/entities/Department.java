@@ -1,11 +1,11 @@
 package model.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Department implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+    @Serial
+    private static final long serialVersionUID=1L;
     private Integer id;
     private String name;
 
@@ -34,32 +34,24 @@ public class Department implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department that)) return false;
+
+        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Department other = (Department) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
     }
 
     @Override
     public String toString() {
-        return "Department [id=" + id + ", name=" + name + "]";
+        final StringBuilder sb = new StringBuilder("Department{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
