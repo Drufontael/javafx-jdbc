@@ -10,13 +10,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Seller;
 import model.service.SellerService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -89,27 +94,27 @@ public class SellerListController implements Initializable, DataChangeListener {
     }
 
     public void createDialogForm(Seller obj, String absoluteName, Stage stageParent){
-//        try{
-//            FXMLLoader loader=new FXMLLoader(getClass().getResource(absoluteName));
-//            Pane pane=loader.load();
-//
-//            SellerFormController controller=loader.getController();
-//            controller.setSeller(obj);
-//            controller.setSellerService(new SellerService());
-//            controller.subscribeDataChangeListener(this);
-//            controller.updateFormData();
-//
-//            Stage dialogStage=new Stage();
-//            dialogStage.setTitle("Digite os dados do Departamento");
-//            dialogStage.setScene(new Scene(pane));
-//            dialogStage.setResizable(false);
-//            dialogStage.initOwner(stageParent);
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.showAndWait();
-//
-//        }catch (IOException e){
-//            Alerts.showAlerts("IOException","Error loading view",e.getMessage(), Alert.AlertType.ERROR);
-//        }
+        try{
+            FXMLLoader loader=new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane=loader.load();
+
+            SellerFormController controller=loader.getController();
+            controller.setSeller(obj);
+            controller.setSellerService(new SellerService());
+            controller.subscribeDataChangeListener(this);
+            controller.updateFormData();
+
+            Stage dialogStage=new Stage();
+            dialogStage.setTitle("Digite os dados do Vendedor");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(stageParent);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.showAndWait();
+
+        }catch (IOException e){
+            Alerts.showAlerts("IOException","Error loading view",e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @Override
