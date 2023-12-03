@@ -91,13 +91,20 @@ public class SellerFormController implements Initializable {
         Integer id= Utils.tryParseInt(txtId.getText());
         if(txtName.getText()==null || txtName.getText().trim().equals(""))
             exception.addError("name","Field can't be empty");
+        if(txtEmail.getText()==null || txtEmail.getText().trim().equals(""))
+            exception.addError("email","Field can't be empty");
+        if(txtBaseSalary.getText()==null || txtBaseSalary.getText().trim().equals(""))
+            exception.addError("baseSalary","Field can't be empty");
+        if(dpBirthDate.getValue()==null)
+            exception.addError("birthDate","Field can't be empty");
         String name=txtName.getText();
         String email=txtEmail.getText();
         LocalDate birthDate=dpBirthDate.getValue();
-        Double baseSalary=Double.parseDouble(txtBaseSalary.getText());
+        Double baseSalary=Utils.tryParseDouble(txtBaseSalary.getText());
+        Department department=comboBoxDepartment.getValue();
 
         if (exception.getErrors().size()>0) throw exception;
-        return new Seller(id,name,email,birthDate,baseSalary,null);
+        return new Seller(id,name,email,birthDate,baseSalary,department);
     }
 
     @FXML
@@ -139,9 +146,13 @@ public class SellerFormController implements Initializable {
 
     private void setErrorMessage(Map<String,String> errors){
         Set<String> fields=errors.keySet();
-        if(fields.contains("name")){
-            labelErrorName.setText(errors.get("name"));
-        }
+
+        labelErrorName.setText(fields.contains("name")?errors.get("name"):"");
+        labelErrorEmail.setText(fields.contains("email")?errors.get("email"):"");
+        labelErrorBirthDate.setText(fields.contains("birthDate")?errors.get("birthDate"):"");
+        labelErrorBaseSalary.setText(fields.contains("baseSalary")?errors.get("baseSalary"):"");
+        errors.clear();
+
     }
 
     private void initializeComboBoxDepartment() {

@@ -7,6 +7,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import model.entities.Department;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,13 @@ public class Utils {
         }catch (NumberFormatException e){
             return null;
         }catch (NullPointerException e){
+            return null;
+        }
+    }
+    public static Double tryParseDouble(String str){
+        try {
+            return Double.parseDouble(str);
+        }catch (NumberFormatException e){
             return null;
         }
     }
@@ -83,6 +91,23 @@ public class Utils {
                     return null;
                 }
             }
+        });
+    }
+    public static <T> void formatTableColumnDepartment(TableColumn<T, Department> tableColumn) {
+        tableColumn.setCellFactory(column -> {
+            TableCell<T, Department> cell = new TableCell<T, Department>() {
+
+                @Override
+                protected void updateItem(Department item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.getName());
+                    }
+                }
+            };
+            return cell;
         });
     }
 }

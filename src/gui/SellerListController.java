@@ -5,7 +5,13 @@ import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,6 +86,10 @@ public class SellerListController implements Initializable, DataChangeListener {
         tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
         Utils.formatTableColumnDouble(tableColumnBaseSalary,2);
         tableColumnDepartment.setCellValueFactory(new PropertyValueFactory<>("department"));
+        Utils.formatTableColumnDepartment(tableColumnDepartment);
+
+
+
 
 
 
